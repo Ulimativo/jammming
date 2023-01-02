@@ -1,5 +1,5 @@
 const clientId = "9fee226c0dc448dca9d1c1a0afdbf395";
-const redirectUri = "http://ulimativ-playlister.surge.sh/";
+const redirectUri = "https://ulimativ-playlister.netlify.app/";
 
 let accessToken;
 
