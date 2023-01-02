@@ -1,5 +1,6 @@
 const clientId = "9fee226c0dc448dca9d1c1a0afdbf395";
-const redirectUri = "http://localhost:3000";
+const redirectUri = "http://ulimativ-playlister.surge.sh/";
+
 let accessToken;
 
 const Spotify = {
@@ -8,14 +9,11 @@ const Spotify = {
       return accessToken;
     }
 
-    // check for accesstoken match
-    const accesstokenMatch = window.location.href.match(/access_token=([^&]*)/);
+    const accessTokenMatch = window.location.href.match(/access_token=([^&]*)/);
     const expiresInMatch = window.location.href.match(/expires_in=([^&]*)/);
-
-    if (accesstokenMatch && expiresInMatch) {
-      accessToken = accesstokenMatch[1];
+    if (accessTokenMatch && expiresInMatch) {
+      accessToken = accessTokenMatch[1];
       const expiresIn = Number(expiresInMatch[1]);
-      // This clears the parameters, allowing us to grab a new access token when it expires.
       window.setTimeout(() => (accessToken = ""), expiresIn * 1000);
       window.history.pushState("Access Token", null, "/");
       return accessToken;
@@ -73,7 +71,7 @@ const Spotify = {
             return fetch(
               `https://api.spotify.com/v1/users/${userId}/playlists/${playlistId}/tracks`,
               {
-                header: headers,
+                headers: headers,
                 method: "POST",
                 body: JSON.stringify({ uris: trackUris }),
               }
